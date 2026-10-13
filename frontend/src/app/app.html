@@ -1,0 +1,63 @@
+<main class="app-background min-vh-100 d-flex align-items-center py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-9 col-lg-7">
+        <section class="card border-0 rounded-4 shadow-lg">
+          <div class="card-body p-4 p-md-5">
+            <p class="eyebrow text-primary fw-bold text-uppercase mb-3">
+              Simulador de bolsa
+            </p>
+            <h1 class="display-3 fw-bold text-dark mb-4">{{ title() }}</h1>
+            <p class="lead text-secondary mb-0">
+              Practica inversiones y sigue cotizaciones utilizando dinero ficticio.
+            </p>
+
+            <form class="mt-5" (submit)="search($event)">
+              <label for="symbol" class="form-label fw-semibold">
+                Símbolo de la empresa
+              </label>
+              <div class="input-group">
+                <input
+                  id="symbol"
+                  class="form-control form-control-lg text-uppercase"
+                  type="text"
+                  placeholder="Ejemplo: AAPL"
+                  autocomplete="off"
+                  [value]="symbol()"
+                  (input)="updateSymbol($event)"
+                >
+                <button
+                  class="btn btn-primary px-4"
+                  type="submit"
+                  [disabled]="!symbol().trim() || loading()"
+                >
+                  {{ loading() ? 'Buscando...' : 'Buscar' }}
+                </button>
+              </div>
+            </form>
+
+            @if (quote(); as currentQuote) {
+              <div class="card bg-light border-0 mt-4">
+                <div class="card-body">
+                  <p class="text-secondary mb-1">Cotización simulada</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <strong class="fs-4">{{ currentQuote.symbol }}</strong>
+                    <span class="fs-4 fw-bold text-success">
+                      {{ currentQuote.price }} $
+                    </span>
+                  </div>
+                </div>
+              </div>
+            }
+
+            @if (error()) {
+              <div class="alert alert-danger mt-4 mb-0" role="alert">
+                {{ error() }} Comprueba que Spring Boot esté iniciado.
+              </div>
+            }
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</main>

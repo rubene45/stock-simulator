@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: stock-simulator
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/stocks
+    username: stocks_user
+    password: stocks_dev_password
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+server:
+  port: 8080
