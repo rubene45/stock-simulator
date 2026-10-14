@@ -30,6 +30,7 @@ public class SecurityConfig {
                 .anyRequest().permitAll())
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(csrf -> csrf
+                    .ignoringRequestMatchers("/api/auth/register", "/api/auth/login", "/api/auth/csrf")
                     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                     .csrfTokenRequestHandler(new SpaCsrfTokenRequestHandler()));
         return http.build();
