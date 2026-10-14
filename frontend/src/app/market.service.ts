@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
 export interface MarketQuote {
   symbol: string;
@@ -15,7 +16,7 @@ export class MarketService {
 
   getQuote(symbol: string): Observable<MarketQuote> {
     return this.http.get<MarketQuote>(
-      `/api/market/quote/${encodeURIComponent(symbol)}`,
+      `${environment.apiUrl}/api/market/quote/${encodeURIComponent(symbol)}`,
     );
   }
 }

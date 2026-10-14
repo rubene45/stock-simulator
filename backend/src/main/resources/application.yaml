@@ -3,9 +3,9 @@ spring:
     name: stock-simulator
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/stocks
-    username: stocks_user
-    password: stocks_dev_password
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/stocks}
+    username: ${DATABASE_USERNAME:stocks_user}
+    password: ${DATABASE_PASSWORD:stocks_dev_password}
 
   jpa:
     hibernate:
@@ -13,4 +13,7 @@ spring:
     open-in-view: false
 
 server:
-  port: 8080
+  port: ${PORT:8080}
+
+app:
+  frontend-origin: ${FRONTEND_ORIGIN:http://localhost:4200}

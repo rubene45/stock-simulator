@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
+import { environment } from '../environments/environment';
 
 export interface UserResponse {
   id: string;
@@ -14,8 +15,8 @@ export interface UserResponse {
 export class AuthService {
   private readonly http = inject(HttpClient);
   register(username: string, email: string, password: string): Observable<UserResponse> {
-    return this.http.get<{ token: string }>('/api/auth/csrf').pipe(
-      switchMap(() => this.http.post<UserResponse>('/api/auth/register', { username, email, password })),
+    return this.http.get<{ token: string }>(`${environment.apiUrl}/api/auth/csrf`, { withCredentials: true }).pipe(
+      switchMap(() => this.http.post<UserResponse>(`${environment.apiUrl}/api/auth/register`, { username, email, password }, { withCredentials: true })),
     );
   }
 }
