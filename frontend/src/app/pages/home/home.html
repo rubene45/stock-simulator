@@ -1,0 +1,25 @@
+<main class="home-page">
+  <div class="container py-5 py-lg-6">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-7">
+        <p class="eyebrow">SIMULACIÓN DE INVERSIÓN Y EMPRESA</p>
+        <h1 class="display-3 fw-bold mb-4">Construye tu futuro en <span>Proyecto Stocks.</span></h1>
+        <p class="lead text-secondary mb-4">Crea empresas, invierte en otros jugadores y compite en una economía compartida.</p>
+        <a class="btn btn-success btn-lg rounded-pill px-4" routerLink="/registro">Empieza a jugar <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="col-lg-5">
+        <section class="market-card">
+          <div class="d-flex justify-content-between align-items-start mb-4"><div><p class="text-secondary small mb-1">MERCADO DE DEMOSTRACIÓN</p><h2 class="h4 mb-0">Explora una cotización</h2></div><span class="market-icon">↗</span></div>
+          <form (submit)="search($event)"><label for="symbol" class="form-label">Símbolo</label><div class="input-group"><input id="symbol" class="form-control form-control-lg" [value]="symbol()" (input)="updateSymbol($event)" placeholder="AAPL"><button class="btn btn-dark px-4" [disabled]="loading()">{{ loading() ? '...' : 'Consultar' }}</button></div></form>
+          @if (quote(); as currentQuote) { <div class="quote-result mt-4"><span>{{ currentQuote.symbol }}</span><strong>{{ currentQuote.price }} $</strong></div> }
+          @if (error()) { <p class="text-danger small mt-3 mb-0" role="alert">{{ error() }}</p> }
+        </section>
+      </div>
+    </div>
+    <div class="row g-3 mt-5 feature-row">
+      <div class="col-md-4"><article class="feature-card"><span>01</span><h3>Funda</h3><p>Crea una empresa y elige tu estrategia.</p></article></div>
+      <div class="col-md-4"><article class="feature-card"><span>02</span><h3>Invierte</h3><p>Participa en empresas de otros jugadores.</p></article></div>
+      <div class="col-md-4"><article class="feature-card"><span>03</span><h3>Compite</h3><p>Crece en una economía que evoluciona.</p></article></div>
+    </div>
+  </div>
+</main>

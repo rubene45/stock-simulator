@@ -1,11 +1,5 @@
-:host {
-  display: block;
-}
-
-.app-background {
-  background: linear-gradient(135deg, #eef4ff, #f8fafc);
-}
-
-.eyebrow {
-  letter-spacing: 0.08em;
-}
+:host { display: block; min-height: 100vh; }
+.site-header { background: #fff; border-bottom: 1px solid #e8ecef; }
+.navbar-brand { color: #16251d; letter-spacing: -0.03em; }
+.brand-mark { display: grid; width: 2.15rem; height: 2.15rem; place-items: center; border-radius: 0.7rem; color: #fff; background: #198754; font-size: 0.75rem; letter-spacing: 0; }
+.nav-link { color: #526158; font-weight: 600; }
