@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://REEMPLAZAR-CON-URL-BACKEND',
+  apiUrl: 'https://stock-simulator-gayg.onrender.com',
 };
