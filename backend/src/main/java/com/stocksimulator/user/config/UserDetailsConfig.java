@@ -12,6 +12,8 @@ public class UserDetailsConfig {
 
     @Bean
     UserDetailsService userDetailsService(UserRepository userRepository) {
+        // Adapta nuestra entidad User al formato que Spring Security necesita
+        // para comprobar credenciales y roles durante el login.
         return email -> userRepository.findByEmailIgnoreCase(email)
                 .map(user -> User.withUsername(user.getEmail())
                         .password(user.getPasswordHash())

@@ -30,11 +30,13 @@ public class SecurityConfig {
 
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        // Coordina la autenticación usando UserDetailsService y PasswordEncoder.
         return configuration.getAuthenticationManager();
     }
 
     @Bean
     SecurityContextRepository securityContextRepository() {
+        // Guarda la autenticación en la sesión HTTP identificada por JSESSIONID.
         return new HttpSessionSecurityContextRepository();
     }
 
@@ -42,7 +44,9 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/api/auth/register", "/api/auth/login", "/api/auth/csrf").permitAll()
+                // /me necesita una sesión autenticada para identificar al usuario.
                 .requestMatchers("/api/auth/me").authenticated()
+                .requestMatchers("/api/auth/logout").authenticated()
                 .anyRequest().permitAll())
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .securityContext(securityContext -> securityContext
