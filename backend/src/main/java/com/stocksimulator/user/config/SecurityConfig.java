@@ -7,6 +7,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.web.context.SecurityContextRepository;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -25,10 +29,24 @@ public class SecurityConfig {
     }
 
     @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
+    }
+
+    @Bean
+    SecurityContextRepository securityContextRepository() {
+        return new HttpSessionSecurityContextRepository();
+    }
+
+    @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
+                .requestMatchers("/api/auth/register", "/api/auth/login", "/api/auth/csrf").permitAll()
+                .requestMatchers("/api/auth/me").authenticated()
                 .anyRequest().permitAll())
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            .securityContext(securityContext -> securityContext
+                    .securityContextRepository(securityContextRepository()))
             .csrf(csrf -> csrf
                     .ignoringRequestMatchers("/api/auth/register", "/api/auth/login", "/api/auth/csrf")
                     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())

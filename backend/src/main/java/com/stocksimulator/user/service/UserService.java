@@ -1,7 +1,7 @@
 package com.stocksimulator.user.service;
 
 import com.stocksimulator.user.dto.RegisterRequest;
-import com.stocksimulator.user.dto.UserResponse;
+import com.stocksimulator.user.dto.UserDto;
 import com.stocksimulator.user.model.User;
 import com.stocksimulator.user.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,9 +21,9 @@ public class UserService {
     }
 
     @Transactional
-    public UserResponse register(RegisterRequest request) {
-        String username = request.username().trim();
-        String email = request.email().trim().toLowerCase(Locale.ROOT);
+    public UserDto register(RegisterRequest request) {
+        String username = request.getUsername().trim();
+        String email = request.getEmail().trim().toLowerCase(Locale.ROOT);
 
         if (userRepository.existsByUsernameIgnoreCase(username)) {
             throw new UserAlreadyExistsException("Ese nombre de usuario ya está en uso.");
@@ -32,7 +32,7 @@ public class UserService {
             throw new UserAlreadyExistsException("Ese correo electrónico ya está registrado.");
         }
 
-        User user = new User(username, email, passwordEncoder.encode(request.password()));
-        return UserResponse.from(userRepository.save(user));
+        User user = new User(username, email, passwordEncoder.encode(request.getPassword()));
+        return UserDto.from(userRepository.save(user));
     }
 }

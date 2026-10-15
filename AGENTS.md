@@ -19,6 +19,10 @@ Simulador empresarial multijugador.
 - No refactorizar código ajeno a la tarea.
 - Reutilizar clases y servicios existentes.
 - No añadir dependencias innecesarias.
+- No utilizar `record` para DTOs; usar clases normales con Lombok.
+- Nombrar los DTOs de salida o comunicación con el sufijo `Dto` (`UserDto`, etc.), no `Response`.
+- Nombrar los cuerpos de entrada de la API con el sufijo `Request` (`LoginRequest`, `RegisterRequest`).
+- Nombrar los modelos específicos de formularios con el sufijo `Form` (`LoginForm`, `RegisterForm`).
 - Evitar explicaciones largas.
 - Mostrar un resumen breve de los cambios.
 - No ejecutar toda la batería de tests salvo necesidad.
