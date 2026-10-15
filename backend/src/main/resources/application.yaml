@@ -2,11 +2,6 @@ spring:
   application:
     name: stock-simulator
 
-  datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/stocks}
-    username: ${DATABASE_USERNAME:stocks_user}
-    password: ${DATABASE_PASSWORD:stocks_dev_password}
-
   jpa:
     hibernate:
       ddl-auto: validate
